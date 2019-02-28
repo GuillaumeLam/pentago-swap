@@ -1,7 +1,7 @@
 package pentago_swap;
 
 import pentago_swap.PentagoBoardState.Piece;
-
+import pentago_swap.PentagoBoardState.Quadrant;
 import java.awt.event.ComponentEvent;
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -70,7 +70,7 @@ public class PentagoBoardPanel extends BoardPanel implements MouseListener, Mous
     private boolean isPieceSelected;
     private PentagoCoord pieceSelection;
     private boolean isQuadSelected;
-    private Integer quadSelection;
+    private Quadrant quadSelection;
 
     // Constructing with this as the listener for everything.
     PentagoBoardPanel() {
@@ -132,16 +132,16 @@ public class PentagoBoardPanel extends BoardPanel implements MouseListener, Mous
         if (isQuadSelected) {
             g2.setColor(HIGHLIGHT_COLOR);
             switch (quadSelection){
-                case 0:
+                case TL:
                     g2.fillRect(0, 0, midPos, midPos);
                     break;
-                case 1:
+                case TR:
                     g2.fillRect(midPos, 0, midPos, midPos);
                     break;
-                case 2:
+                case BL:
                     g2.fillRect(0, midPos, midPos, midPos);
                     break;
-                case 3:
+                case BR:
                     g2.fillRect(midPos, midPos, midPos, midPos);
                     break;
                 default:
@@ -224,8 +224,8 @@ public class PentagoBoardPanel extends BoardPanel implements MouseListener, Mous
     }
 
     private void completeMove(MouseEvent e) {
-        Integer secondQuad = findQuadSelection(e);
-        if (secondQuad == null || secondQuad.equals(quadSelection)) { return; }
+        Quadrant secondQuad = findQuadSelection(e);
+        if (secondQuad == null || secondQuad == quadSelection) { return; }
         PentagoBoardState pbs = (PentagoBoardState) getCurrentBoard().getBoardState();
         PentagoMove move = new PentagoMove(pieceSelection, quadSelection, secondQuad, pbs.getTurnPlayer());
         listener.moveEntered(move);
@@ -234,7 +234,7 @@ public class PentagoBoardPanel extends BoardPanel implements MouseListener, Mous
         System.out.println("MOVE COMPLETED");
     }
 
-    private Integer findQuadSelection(MouseEvent e) {
+    private Quadrant findQuadSelection(MouseEvent e) {
         int clickX = e.getX();
         int clickY = e.getY();
         for (int i = 0; i < PentagoBoardState.BOARD_SIZE; i++) {
@@ -242,10 +242,10 @@ public class PentagoBoardPanel extends BoardPanel implements MouseListener, Mous
                 int xPos = j * SQUARE_SIZE + SQUARE_SIZE / 2;
                 int yPos = i * SQUARE_SIZE + SQUARE_SIZE / 2;
                 if(clickInSquare(clickX, clickY, xPos, yPos)) {
-                    if (i < 3 && j < 3) { return 0; }
-                    else if (i < 3 && j >= 3) { return 1; }
-                    else if (j < 3) { return 2; }
-                    else { return 3; }
+                    if (i < 3 && j < 3) { return Quadrant.TL; }
+                    else if (i < 3 && j >= 3) { return Quadrant.TR; }
+                    else if (j < 3) { return Quadrant.BL; }
+                    else { return Quadrant.BR; }
                 }
             }
         }

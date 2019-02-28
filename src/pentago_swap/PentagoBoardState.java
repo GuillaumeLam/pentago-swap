@@ -166,6 +166,11 @@ public class PentagoBoardState extends BoardState {
         return legalMoves;
     }
 
+    /**
+     * Check if the given move is legal
+     * @param m the move
+     * @return true if the move is legal, false otherwise
+     */
     public boolean isLegal(PentagoMove m) {
         if (m.getASwap() == m.getBSwap()) { return false; } // Cannot swap same tile
         PentagoCoord c = m.getMoveCoord();
@@ -176,8 +181,8 @@ public class PentagoBoardState extends BoardState {
 
     /**
      * Check if placing a piece here is legal, without regards to the swap or player ID
-     * @param c
-     * @return
+     * @param c coordinate for the piece
+     * @return true if piece can be played here, false otherwise
      */
     public boolean isPlaceLegal(PentagoCoord c) {
         if (c.getX() >= BOARD_SIZE || c.getX() < 0 || c.getY() < 0 || c.getY() >= BOARD_SIZE) { return false; }
