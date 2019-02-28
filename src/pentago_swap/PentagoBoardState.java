@@ -5,6 +5,7 @@ import boardgame.BoardState;
 import boardgame.Move;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.function.UnaryOperator;
 import java.util.Random;
 
@@ -31,11 +32,31 @@ public class PentagoBoardState extends BoardState {
         }
     }
 
+    public enum Quadrant {
+        TL, TR, BL, BR;  // Top-left, Top-right, Bottom-left, Bottom-right
+
+        public String toString() { return name(); }
+    }
+
     private static final UnaryOperator<PentagoCoord> getNextHorizontal = c -> new PentagoCoord(c.getX(), c.getY()+1);
     private static final UnaryOperator<PentagoCoord> getNextVertical = c -> new PentagoCoord(c.getX()+1, c.getY());
     private static final UnaryOperator<PentagoCoord> getNextDiagRight = c -> new PentagoCoord(c.getX()+1, c.getY()+1);
     private static final UnaryOperator<PentagoCoord> getNextDiagLeft = c -> new PentagoCoord(c.getX()+1, c.getY()-1);
     private static int FIRST_PLAYER = 0;
+    private static HashMap<Quadrant, Integer> quadToInt;
+    private static HashMap<Integer, Quadrant> intToQuad;
+    static {
+        quadToInt = new HashMap<>(4);
+        quadToInt.put(Quadrant.TL, 0);
+        quadToInt.put(Quadrant.TR, 1);
+        quadToInt.put(Quadrant.BL, 2);
+        quadToInt.put(Quadrant.BR, 3);
+        intToQuad = new HashMap<>(4);
+        intToQuad.put(0, Quadrant.TL);
+        intToQuad.put(1, Quadrant.TR);
+        intToQuad.put(2, Quadrant.BL);
+        intToQuad.put(3, Quadrant.BR);
+    }
 
     private Piece[][] board;
     private Piece[][][] quadrants;
@@ -136,7 +157,7 @@ public class PentagoBoardState extends BoardState {
                 if (board[i][j] == Piece.EMPTY) {
                     for (int k = 0; k < NUM_QUADS - 1; k++) { // Iterate through valid swaps
                         for (int l = k+1; l < NUM_QUADS; l++) {
-                            legalMoves.add(new PentagoMove(i, j, k, l, turnPlayer));
+                            legalMoves.add(new PentagoMove(i, j, intToQuad.get(k), intToQuad.get(l), turnPlayer));
                         }
                     }
                 }
@@ -146,7 +167,6 @@ public class PentagoBoardState extends BoardState {
     }
 
     public boolean isLegal(PentagoMove m) {
-        if (m.getASwap() < 0 || m.getASwap() >= NUM_QUADS || m.getBSwap() < 0 || m.getBSwap() >= NUM_QUADS) { return false; }
         if (m.getASwap() == m.getBSwap()) { return false; } // Cannot swap same tile
         PentagoCoord c = m.getMoveCoord();
         if (c.getX() >= BOARD_SIZE || c.getX() < 0 || c.getY() < 0 || c.getY() >= BOARD_SIZE) { return false; }
@@ -193,8 +213,8 @@ public class PentagoBoardState extends BoardState {
         }
 
         //Swapping mechanism
-        int a = m.getASwap();
-        int b = m.getBSwap();
+        int a = quadToInt.get(m.getASwap());
+        int b = quadToInt.get(m.getBSwap());
         Piece[][] tmp = quadrants[a];
         quadrants[a] = quadrants[b];
         quadrants[b] = tmp;
