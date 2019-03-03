@@ -28,7 +28,6 @@ public class StudentPlayer extends PentagoPlayer {
         // strategies...
         MyTools.getSomething();
 
-        // Is random the best you can do?
         Move myMove = boardState.getRandomMove();
 
         // Return your move to be processed by the server.

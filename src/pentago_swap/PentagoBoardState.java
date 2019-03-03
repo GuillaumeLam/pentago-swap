@@ -42,7 +42,7 @@ public class PentagoBoardState extends BoardState {
     private static final UnaryOperator<PentagoCoord> getNextVertical = c -> new PentagoCoord(c.getX()+1, c.getY());
     private static final UnaryOperator<PentagoCoord> getNextDiagRight = c -> new PentagoCoord(c.getX()+1, c.getY()+1);
     private static final UnaryOperator<PentagoCoord> getNextDiagLeft = c -> new PentagoCoord(c.getX()+1, c.getY()-1);
-    private static int FIRST_PLAYER = 0;
+    private static int FIRST_PLAYER = WHITE;
     private static HashMap<Quadrant, Integer> quadToInt;
     private static HashMap<Integer, Quadrant> intToQuad;
     static {
@@ -132,6 +132,8 @@ public class PentagoBoardState extends BoardState {
 
     @Override
     public int firstPlayer() { return FIRST_PLAYER; }
+
+    public int getOpponent() { return (turnPlayer == WHITE) ? BLACK : WHITE; }
 
     @Override
     public Move getRandomMove() {
@@ -227,6 +229,9 @@ public class PentagoBoardState extends BoardState {
         buildBoardFromQuadrants();
     }
 
+    /**
+     * Updates the board after the quadrants have changed.
+     */
     private void buildBoardFromQuadrants() {
         for (int i = 0; i < BOARD_SIZE; i++) {
             int quadrantRow = i < 3 ? i : i - 3;
@@ -237,6 +242,9 @@ public class PentagoBoardState extends BoardState {
         }
     }
 
+    /**
+     * Checks if the game has ended, and changes the winner attribute if so.
+     */
     private void updateWinner() {
         boolean playerWin = checkVerticalWin(turnPlayer) || checkHorizontalWin(turnPlayer) || checkDiagRightWin(turnPlayer) || checkDiagLeftWin(turnPlayer);
         int otherPlayer = 1 - turnPlayer;
