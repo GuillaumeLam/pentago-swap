@@ -14,7 +14,7 @@ public class StudentPlayer extends PentagoPlayer {
      * associate you with your agent. The constructor should do nothing else.
      */
     public StudentPlayer() {
-        super("xxxxxxxxx");
+        super("260736117");
     }
 
     /**
@@ -28,7 +28,7 @@ public class StudentPlayer extends PentagoPlayer {
         // strategies...
         MyTools.getSomething();
 
-        Move myMove = boardState.getRandomMove();
+        Move myMove = boardState.getAllLegalMoves().get(0);
 
         // Return your move to be processed by the server.
         return myMove;
