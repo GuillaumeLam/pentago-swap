@@ -28,9 +28,21 @@ public class StudentPlayer extends PentagoPlayer {
         // strategies...
         MyTools.getSomething();
 
+        ABPrune abp = new ABPrune(boardState, this);
+
         Move myMove = boardState.getAllLegalMoves().get(0);
 
         // Return your move to be processed by the server.
         return myMove;
     }
 }
+
+/*TODO for speed:
+*  -reduce the number of legal moves to account for rotation and immediate loss/win
+*  -implement in C++
+* TODO for accuracy
+*  -monte carlo implementation
+*  -nn implementation for board evaluation
+* TODO general
+*  -run code/game on desktop
+* */
