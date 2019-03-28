@@ -23,16 +23,13 @@ public class StudentPlayer extends PentagoPlayer {
      * make decisions.
      */
     public Move chooseMove(PentagoBoardState boardState) {
-        // You probably will make separate functions in MyTools.
-        // For example, maybe you'll need to load some pre-processed best opening
-        // strategies...
-        MyTools.getSomething();
+        Move myMove;
 
-        ABPrune abp = new ABPrune(boardState, this);
+        myMove = ABPrune.abp(2, boardState.getTurnPlayer(), boardState).getValue();
 
-        Move myMove = boardState.getAllLegalMoves().get(0);
+        //myMove = boardState.getAllLegalMoves().get(0);
+        System.out.println(myMove.toPrettyString());
 
-        // Return your move to be processed by the server.
         return myMove;
     }
 }
@@ -44,5 +41,5 @@ public class StudentPlayer extends PentagoPlayer {
 *  -monte carlo implementation
 *  -nn implementation for board evaluation
 * TODO general
-*  -run code/game on desktop
+*  DONE-run code/game on desktop
 * */
