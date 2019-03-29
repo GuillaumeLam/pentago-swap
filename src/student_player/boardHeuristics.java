@@ -19,12 +19,12 @@ public abstract class boardHeuristics {
                     // player 0 plays white pieces
                     if (pentagoBoardState.getPieceAt(i,j) == PentagoBoardState.Piece.WHITE &&
                             pentagoBoardState.getPieceAt(i,j+1) == PentagoBoardState.Piece.WHITE) {
-                        moveValue += streak + 1;
+                        moveValue += Math.pow(10, streak);
                         streak++;
                     }
                     else if(pentagoBoardState.getPieceAt(i,j) == PentagoBoardState.Piece.BLACK &&
                             pentagoBoardState.getPieceAt(i,j+1) == PentagoBoardState.Piece.BLACK) {
-                        moveValue -= streak - 1;
+                        moveValue -= Math.pow(10, streak);
                         streak++;
                     }
                     else {
@@ -38,12 +38,12 @@ public abstract class boardHeuristics {
                 for (int j = 0; j < 5; j++) {
                     if (pentagoBoardState.getPieceAt(j,i) == PentagoBoardState.Piece.WHITE &&
                             pentagoBoardState.getPieceAt(j+1,i) == PentagoBoardState.Piece.WHITE) {
-                        moveValue += streak + 1;
+                        moveValue += Math.pow(10, streak);
                         streak++;
                     }
                     else if(pentagoBoardState.getPieceAt(j,i) == PentagoBoardState.Piece.BLACK &&
                             pentagoBoardState.getPieceAt(j+1,i) == PentagoBoardState.Piece.BLACK) {
-                        moveValue -= streak - 1;
+                        moveValue -= Math.pow(10, streak);
                         streak++;
                     }
                     else {
@@ -56,12 +56,12 @@ public abstract class boardHeuristics {
             for (int i = 0; i > 5; i++) {
                 if (pentagoBoardState.getPieceAt(i,i) == PentagoBoardState.Piece.WHITE &&
                         pentagoBoardState.getPieceAt(i+1,i+1) == PentagoBoardState.Piece.WHITE) {
-                    moveValue += streak + 1;
+                    moveValue += Math.pow(10, streak);
                     streak++;
                 }
                 else if(pentagoBoardState.getPieceAt(i,i) == PentagoBoardState.Piece.BLACK &&
                         pentagoBoardState.getPieceAt(i+1,i+1) == PentagoBoardState.Piece.BLACK) {
-                    moveValue -= streak - 1;
+                    moveValue -= Math.pow(10, streak);
                     streak++;
                 }
                 else {
@@ -72,12 +72,12 @@ public abstract class boardHeuristics {
             for (int i = 0; i > 5; i++) {
                 if (pentagoBoardState.getPieceAt(i,5-i) == PentagoBoardState.Piece.WHITE &&
                         pentagoBoardState.getPieceAt(i+1,4-i) == PentagoBoardState.Piece.WHITE) {
-                    moveValue += streak + 1;
+                    moveValue += Math.pow(10, streak);
                     streak++;
                 }
                 else if(pentagoBoardState.getPieceAt(i,5-i) == PentagoBoardState.Piece.BLACK &&
                         pentagoBoardState.getPieceAt(i+1,4-i) == PentagoBoardState.Piece.BLACK) {
-                    moveValue -= streak - 1;
+                    moveValue -= Math.pow(10, streak);
                     streak++;
                 }
                 else {
@@ -88,6 +88,7 @@ public abstract class boardHeuristics {
             // count the offset diagonals
         }
         else {
+            // weight heavily insta wins and insta loses
             if (winner == PentagoBoardState.WHITE) {
                 moveValue = Integer.MAX_VALUE;
             }

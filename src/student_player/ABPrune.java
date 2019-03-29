@@ -10,7 +10,6 @@ public class ABPrune {
 
     public static AbstractMap.SimpleEntry<Integer, PentagoMove> abp(int depth, int player, PentagoBoardState pbs) {
         ArrayList<PentagoMove> nextmoves = pbs.getAllLegalMoves();
-        pbs.printBoard();
 
         int bestScore = (player == PentagoBoardState.WHITE) ? Integer.MIN_VALUE : Integer.MAX_VALUE;
         int currentScore;
@@ -21,7 +20,6 @@ public class ABPrune {
         }
         else {
             for (PentagoMove currentmove: nextmoves){
-                System.out.println("considering mover: "+currentmove.toPrettyString());
                 PentagoBoardState boardwMove = (PentagoBoardState)pbs.clone();
                 boardwMove.processMove(currentmove);
                 if (player == PentagoBoardState.WHITE) {

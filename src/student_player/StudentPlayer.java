@@ -29,6 +29,7 @@ public class StudentPlayer extends PentagoPlayer {
 
         //myMove = boardState.getAllLegalMoves().get(0);
         System.out.println(myMove.toPrettyString());
+        boardState.printBoard();
 
         return myMove;
     }
@@ -40,6 +41,7 @@ public class StudentPlayer extends PentagoPlayer {
 * TODO for accuracy
 *  -monte carlo implementation
 *  -nn implementation for board evaluation
+*  -in heuristic of board have some blocking concept
 * TODO general
 *  DONE-run code/game on desktop
 * */
