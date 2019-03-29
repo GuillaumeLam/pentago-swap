@@ -25,7 +25,8 @@ public class StudentPlayer extends PentagoPlayer {
     public Move chooseMove(PentagoBoardState boardState) {
         Move myMove;
 
-        myMove = ABPrune.abp(2, boardState.getTurnPlayer(), boardState).getValue();
+        //myMove = ABPrune.minimax(2, boardState.getTurnPlayer(), boardState).getValue();
+        myMove = ABPrune.abp(3, boardState.getTurnPlayer(), boardState, Integer.MIN_VALUE, Integer.MAX_VALUE).getValue();
 
         //myMove = boardState.getAllLegalMoves().get(0);
         System.out.println(myMove.toPrettyString());
