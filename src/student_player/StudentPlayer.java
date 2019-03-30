@@ -23,14 +23,26 @@ public class StudentPlayer extends PentagoPlayer {
      * make decisions.
      */
     public Move chooseMove(PentagoBoardState boardState) {
-        // You probably will make separate functions in MyTools.
-        // For example, maybe you'll need to load some pre-processed best opening
-        // strategies...
-        MyTools.getSomething();
+        Move myMove;
 
-        Move myMove = boardState.getAllLegalMoves().get(0);
+        //myMove = ABPrune.minimax(2, boardState.getTurnPlayer(), boardState).getValue();
+        myMove = ABPrune.abp(3, boardState.getTurnPlayer(), boardState, Integer.MIN_VALUE, Integer.MAX_VALUE).getValue();
 
-        // Return your move to be processed by the server.
+        //myMove = boardState.getAllLegalMoves().get(0);
+        System.out.println(myMove.toPrettyString());
+        boardState.printBoard();
+
         return myMove;
     }
 }
+
+/*TODO for speed:
+*  -reduce the number of legal moves to account for rotation and immediate loss/win
+*  -implement in C++
+* TODO for accuracy
+*  -monte carlo implementation
+*  -nn implementation for board evaluation
+*  -in heuristic of board have some blocking concept
+* TODO general
+*  DONE-run code/game on desktop
+* */
