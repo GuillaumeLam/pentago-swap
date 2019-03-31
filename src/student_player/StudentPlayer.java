@@ -43,6 +43,7 @@ public class StudentPlayer extends PentagoPlayer {
 *  -monte carlo implementation
 *  -nn implementation for board evaluation
 *  -in heuristic of board have some blocking concept
-* TODO general
+*  -in heuristic of board have points for draw
+ * TODO general
 *  DONE-run code/game on desktop
 * */
