@@ -4,6 +4,7 @@ import boardgame.Move;
 
 import pentago_swap.PentagoPlayer;
 import pentago_swap.PentagoBoardState;
+import student_player.abprune.ABPrune;
 
 /** A player file submitted by a student. */
 public class StudentPlayer extends PentagoPlayer {

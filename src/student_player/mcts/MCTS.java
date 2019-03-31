@@ -1,16 +1,17 @@
-package student_player;
+package student_player.mcts;
 
 import boardgame.Board;
 import pentago_swap.PentagoBoardState;
 import pentago_swap.PentagoMove;
-import student_player.MCTSStructure.Node;
-import student_player.MCTSStructure.State;
-import student_player.MCTSStructure.Tree;
+import student_player.mcts.MCTSStructure.Node;
+import student_player.mcts.MCTSStructure.State;
+import student_player.mcts.MCTSStructure.Tree;
 
 import java.util.ArrayList;
 
 public class MCTS {
     private static final int WIN_SCORE = 10;
+    private static final long MCTS_TIME = 250;
     private int level;
     private int opponent;
 
@@ -32,7 +33,7 @@ public class MCTS {
 
     public PentagoMove mcts(PentagoBoardState pentagoBoardState, int player) {
         long start = System.currentTimeMillis();
-        long end = start + 60 * getMillisForCurrentLevel();
+        long end = start + MCTS_TIME * getMillisForCurrentLevel();
 
         if (player == PentagoBoardState.WHITE) {
             opponent = PentagoBoardState.BLACK;

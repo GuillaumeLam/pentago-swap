@@ -1,4 +1,4 @@
-package student_player;
+package student_player.abprune;
 
 import pentago_swap.PentagoBoardState;
 import pentago_swap.PentagoMove;

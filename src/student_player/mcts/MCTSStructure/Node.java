@@ -1,8 +1,6 @@
-package student_player.MCTSStructure;
+package student_player.mcts.MCTSStructure;
 
-import pentago_swap.PentagoBoard;
 import pentago_swap.PentagoBoardState;
-import pentago_swap.PentagoMove;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -15,6 +13,7 @@ public class Node {
 
     public Node(PentagoBoardState pentagoBoardState) {
         this.state = new State(pentagoBoardState);
+        childArray = new ArrayList<>();
     }
 
     public Node(State state) {

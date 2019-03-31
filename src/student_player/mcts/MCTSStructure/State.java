@@ -1,10 +1,7 @@
-package student_player.MCTSStructure;
+package student_player.mcts.MCTSStructure;
 
-import boardgame.Move;
-import pentago_swap.PentagoBoard;
 import pentago_swap.PentagoBoardState;
 import pentago_swap.PentagoMove;
-import pentago_swap.RandomPentagoPlayer;
 
 import java.util.ArrayList;
 import java.util.Random;

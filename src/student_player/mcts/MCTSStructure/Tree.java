@@ -1,4 +1,4 @@
-package student_player.MCTSStructure;
+package student_player.mcts.MCTSStructure;
 
 import pentago_swap.PentagoBoardState;
 

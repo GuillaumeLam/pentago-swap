@@ -3,6 +3,7 @@ package student_player;
 import boardgame.Move;
 import pentago_swap.PentagoBoardState;
 import pentago_swap.PentagoPlayer;
+import student_player.mcts.MCTS;
 
 public class MCTSPlayer extends PentagoPlayer {
     public MCTSPlayer() {

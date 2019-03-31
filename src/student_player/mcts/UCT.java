@@ -1,6 +1,6 @@
-package student_player;
+package student_player.mcts;
 
-import student_player.MCTSStructure.Node;
+import student_player.mcts.MCTSStructure.Node;
 
 import java.util.Collections;
 import java.util.Comparator;
