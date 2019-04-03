@@ -11,11 +11,15 @@ public class MCTSPlayer extends PentagoPlayer {
     }
 
     public Move chooseMove(PentagoBoardState boardState) {
+        long start = System.currentTimeMillis();
         Move myMove;
 
         MCTS mcts = new MCTS();
         myMove = mcts.mcts(boardState,boardState.getTurnPlayer());
 
+        long end = System.currentTimeMillis();
+
+        System.out.println("move took " + (double)(end-start)/1000 + "s");
         return myMove;
     }
 }

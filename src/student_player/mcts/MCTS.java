@@ -11,12 +11,12 @@ import java.util.ArrayList;
 
 public class MCTS {
     private static final int WIN_SCORE = 10;
-    private static final long MCTS_TIME = 250;
+    private static final long MCTS_TIME = 100;
     private int level;
     private int opponent;
 
     public MCTS() {
-        this.level = 3;
+        this.level = 4;
     }
 
     public int getLevel() {
