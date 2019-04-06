@@ -45,6 +45,9 @@ public class StudentPlayer extends PentagoPlayer {
 *  -nn implementation for board evaluation
 *  -in heuristic of board have some blocking concept
 *  -in heuristic of board have points for draw
+*  -in heuristic of board have points for blocking
+*  -first four move focus on center pieces
+*  -run ab but for opponent and if more favourable then play that instead
  * TODO general
 *  DONE-run code/game on desktop
 * */
