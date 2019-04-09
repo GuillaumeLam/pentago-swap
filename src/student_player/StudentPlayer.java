@@ -40,6 +40,7 @@ public class StudentPlayer extends PentagoPlayer {
 /*TODO for speed:
 *  -reduce the number of legal moves to account for rotation and immediate loss/win
 *  -implement in C++
+*
 * TODO for accuracy
 *  -monte carlo implementation
 *  -nn implementation for board evaluation
@@ -48,6 +49,7 @@ public class StudentPlayer extends PentagoPlayer {
 *  -in heuristic of board have points for blocking
 *  -first four move focus on center pieces
 *  -run ab but for opponent and if more favourable then play that instead
+*
  * TODO general
 *  DONE-run code/game on desktop
 * */

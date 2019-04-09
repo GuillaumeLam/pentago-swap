@@ -51,3 +51,22 @@ mcts:85 lvl:5
 MCTS won 86.0%, alpha-beta won 14.0%, and draw 0.0%
 MCTS went first 50.0% and alpha beta went first 50.0%
 MCTS won 41.86046511627907% by going first, and alpha beta won 0.0% by going first
+
+
+--------------------------------XXX--------------------------------
+-first four moves are for center
+-ab will try to block if theres time
+
+ab:3
+mcts:40 lvl:10
+MCTS won 94.0%, alpha-beta won 6.0%, and draw 0.0%
+MCTS went first 50.0% and alpha beta went first 50.0%
+MCTS won 47.87234042553192% by going first, and alpha beta won 16.666666666666668% by going first
+
+--------------------------------XXX--------------------------------
+-first four moves are for center
+
+rnd
+mcts:40 lvl:10
+MCTS won 100.0%, rnd won 0.0%, and draw 0.0%
+MCTS went first 50.0% and rnd went first 50.0%
