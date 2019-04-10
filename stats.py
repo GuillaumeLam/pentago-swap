@@ -32,6 +32,6 @@ with open('./logs/outcomes.txt', newline='') as csvfile:
                 else:
                     mctswins = mctswins + 1
 
-print("MCTS won " + str(100 * mctswins/total) +"%, student won " +str(100 * abwins/total)+"%, and draw " +str(100 * draw/total)+"%")
-print("MCTS went first " + str(100 * mctsfirst/total) +"% and student went first " + str(100 * abfirst/total) + "%")
-print("MCTS won " + str(100 * mctsfirstwins/mctswins) + "% by going first, and student won " + str(100 * abfirstwins/abwins) + "% by going first")
+print("MCTS won " + str(100 * mctswins/total) +"%, rush won " +str(100 * abwins/total)+"%, and draw " +str(100 * draw/total)+"%")
+print("MCTS went first " + str(100 * mctsfirst/total) +"% and rush went first " + str(100 * abfirst/total) + "%")
+print("MCTS won " + str(100 * mctsfirstwins/mctswins) + "% by going first, and rush won " + str(100 * abfirstwins/abwins) + "% by going first")

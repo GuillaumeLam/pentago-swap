@@ -70,7 +70,6 @@ public class ABPrune {
                     }
                 }
                 if (alpha >= beta) {
-                    //System.out.println("pruned!");
                     break;
                 }
             }

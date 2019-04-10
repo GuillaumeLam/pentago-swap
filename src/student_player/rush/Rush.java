@@ -40,26 +40,20 @@ public class Rush {
         PentagoMove myMove = null;
 
         if (boardState.getTurnPlayer() == PentagoBoardState.WHITE) {
-            System.out.println("going first! turn: " + turn );
             myMove = rush(boardState);
         }
         else {
-            System.out.println("going second! turn: " + turn );
             // logic for going second
             // rush until move three if the player has deviated from putting their third in that row abandon else go for block
             if (turn < 2) {
-                //while ((myMove == null || !boardState.isPlaceLegal(myMove.getMoveCoord()) ) && centers.size() != 0) {
-
                 while(!((myMove != null && boardState.isPlaceLegal(myMove.getMoveCoord())) || centers.size() == 0)) {
                     int index = rnd.nextInt(centers.size());
                     myMove = centers.get(index);
-                    //centers.remove(index);
                 }
             }
             else if (secondrush) {
                 if (turn == 2) {
                     boolean test = otherPlayerNoRush(boardState);
-                    System.out.println("no op rush: " + test);
                     if (test) {
                         myMove = rush(boardState);
                     }
@@ -73,7 +67,6 @@ public class Rush {
             }
 
             if (myMove == null) {
-                System.out.println("going to mcts from chooseMove");
                 myMove = postrush(boardState);
             }
         }
@@ -90,12 +83,10 @@ public class Rush {
             while (!(myMove != null && boardState.isPlaceLegal(myMove.getMoveCoord()) ) && centers.size() != 0) {
                 int index = rnd.nextInt(centers.size());
                 myMove = centers.get(index);
-                //centers.remove(index);
             }
         }
         // keep rushing unless blocked in line of 5, in that case mcts
         else if(turn < 5) {
-            System.out.println("trying to follow a line");
             if (turn == 2) {
                 possibleFives = findFiveArray(boardState, mypiece);
             }
@@ -105,85 +96,20 @@ public class Rush {
 
             // no possible win with lines of 5
             if (possibleFives.isEmpty()) {
-                System.out.println("going to post from rush1");
                 myMove = postrush(boardState);
             }
-            // TODO
             else {
-                System.out.println("still following a line");
-
                 Line line = possibleFives.get(0);
 
                 if (islineFilledOrEmpty(line, "filled") && possibleFives.size()==2) {
                     line = possibleFives.get(1);
                 }
 
-                /*if (!islineFilled(line)) {
-                    if ((line.getLine().get(0).getPlayer() == mypiece && line.getLine().get(1).getPlayer() == mypiece)
-                            || (line.getLine().get(3).getPlayer() == mypiece && line.getLine().get(4).getPlayer() == mypiece)) {
-                        if ((line.getLine().get(0).getPlayer() == mypiece ^ line.getLine().get(1).getPlayer() == mypiece)
-                                || (line.getLine().get(3).getPlayer() == mypiece ^ line.getLine().get(4).getPlayer() == mypiece)) {
-                            if (line.getLine().get(0).getPlayer() == mypiece && line.getLine().get(1).getPlayer() == mypiece) {
-                                // case 1
-                                System.out.println("case 1");
-                            }
-                            else {
-                                // case 2
-                                System.out.println("case 2");
-                            }
-                        }
-                        else {
-                            if (line.getLine().get(0).getPlayer() == mypiece && line.getLine().get(1).getPlayer() == mypiece
-                                    && line.getLine().get(3).getPlayer() != mypiece && line.getLine().get(4).getPlayer() != mypiece) {
-                                // case 3
-                                System.out.println("case 3");
-                            }
-                            else if (line.getLine().get(0).getPlayer() != mypiece && line.getLine().get(1).getPlayer() != mypiece
-                                    && line.getLine().get(3).getPlayer() == mypiece && line.getLine().get(4).getPlayer() == mypiece) {
-                                // case 4
-                                System.out.println("case 4");
-                            }
-                            else {
-                                // case 5
-                                System.out.println("case 5");
-                            }
-                        }
-                    }
-                    else {
-                        if ((line.getLine().get(0).getPlayer() != mypiece && line.getLine().get(1).getPlayer() != mypiece)
-                                || (line.getLine().get(3).getPlayer() != mypiece && line.getLine().get(4).getPlayer() != mypiece)) {
-                            if (line.getLine().get(0).getPlayer() == mypiece || line.getLine().get(1).getPlayer() == mypiece) {
-                                // case 6
-                                System.out.println("case 6");
-                            }
-                            else {
-                                // case 7
-                                System.out.println("case 7");
-                            }
-                        }
-                        else {
-                            if (line.getLine().get(0).getPlayer() == mypiece) {
-                                // case 8
-                                System.out.println("case 8");
-                            }
-                            else {
-                                // case 9
-                                System.out.println("case 9");
-                            }
-                        }
-                    }
-                }
-                // all five pieces are filled but have not won
-                else {
-                    // one of five possible states
-                }*/
-
                 myMove = pickRnd(line, boardState);
             }
         }
         // mcts if game keeps going from there
         else {
-            System.out.println("going to post from rush2");
             myMove = postrush(boardState);
         }
 
@@ -191,12 +117,9 @@ public class Rush {
     }
 
     private PentagoMove postrush(PentagoBoardState boardState) {
-        System.out.println("mcts kicked in");
-
         PentagoMove move = hasWinMove(boardState);
 
         if (move == null) {
-            System.out.println("found no clear win move");
             MCTS mcts = new MCTS();
             move = mcts.mcts(boardState,boardState.getTurnPlayer());
         }
@@ -272,12 +195,10 @@ public class Rush {
             }
 
             if (boardState.getTurnPlayer() == PentagoBoardState.WHITE && black >= 2 && white < placedPieces - 1) {
-                //possibleFives.remove(line);
                 nofivewin = true;
                 break;
             }
             else if (boardState.getTurnPlayer() == PentagoBoardState.BLACK && white >= 2 && black < placedPieces - 1) {
-                //possibleFives.remove(line);
                 nofivewin = true;
                 break;
             }
@@ -292,7 +213,6 @@ public class Rush {
 
         // if in some permutation of a line there are 2 of the opponent's pieces, it's impossible to win on that line, abandon
         if (nofivewin) {
-            System.out.println("cleared the possiblities!");
             possibleFives = new ArrayList<>();
         }
     }
@@ -319,7 +239,7 @@ public class Rush {
 
         PentagoBoardState cpb = (PentagoBoardState)boardState.clone();
 
-        PentagoMove uselessMove = chooseUselessMove(cpb, q1, q2);
+        PentagoMove uselessMove = chooseRandomMove(cpb, q1, q2);
         PentagoMove goodSwap = new PentagoMove(uselessMove.getMoveCoord().getX(), uselessMove.getMoveCoord().getY(), q1, q2, boardState.getTurnPlayer());
 
         cpb.processMove(goodSwap);
@@ -330,7 +250,6 @@ public class Rush {
 
         if (availMoves.size() == 0) {
             possibleFives = new ArrayList<>();
-            System.out.println("going to post from pickRnd");
             return postrush(boardState);
         }
 
@@ -341,8 +260,6 @@ public class Rush {
 
         int x = availMoves.get(index).getX();
         int y = availMoves.get(index).getY();
-
-        System.out.println(line.getDirection());
 
         if (isInQS(x, y, q1, q2)) {
             switch (line.getDirection()) {
@@ -586,12 +503,10 @@ public class Rush {
                 break;
         }
 
-        //System.out.println(q);
-
         return swapQ;
     }
 
-    private PentagoMove chooseUselessMove (PentagoBoardState boardState, PentagoBoardState.Quadrant q1, PentagoBoardState.Quadrant q2) {
+    private PentagoMove chooseRandomMove(PentagoBoardState boardState, PentagoBoardState.Quadrant q1, PentagoBoardState.Quadrant q2) {
         ArrayList<PentagoMove> moves = boardState.getAllLegalMoves();
         ArrayList<PentagoMove> toDel = new ArrayList<>();
 
@@ -770,7 +685,6 @@ public class Rush {
             PentagoBoardState cp = (PentagoBoardState)boardState.clone();
             cp.processMove(move);
             if (cp.getWinner() == boardState.getTurnPlayer()) {
-                System.out.println("found winning move");
                 return move;
             }
         }
@@ -812,16 +726,6 @@ public class Rush {
 
         ArrayList<Integer> xs = new ArrayList<>();
         ArrayList<Integer> ys = new ArrayList<>();
-
-        /*for (Line line : opLines) {
-            Spot spot = line.getLine().get(0);
-            if (!xs.contains(spot.getX())) {
-                xs.add(spot.getX());
-            }
-            if (!ys.contains(spot.getY())) {
-                ys.add(spot.getY());
-            }
-        }*/
 
         for (Spot spot : points) {
             if (!xs.contains(spot.getX())) {

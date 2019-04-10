@@ -53,7 +53,6 @@ public class AlphaBetaPlayer extends PentagoPlayer {
             if (((double)(abend-abstart)/1000) < 1.0) {
                 AbstractMap.SimpleEntry<Integer, PentagoMove> opMove = ABPrune.abp(3, boardState.getOpponent(), boardState, Integer.MIN_VALUE, Integer.MAX_VALUE);
                 if (opMove.getKey() > myMove.getKey()) {
-                    System.out.println("blocking opp instead");
                     myMove = opMove;
                 }
             }
