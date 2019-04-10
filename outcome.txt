@@ -70,3 +70,13 @@ rnd
 mcts:40 lvl:10
 MCTS won 100.0%, rnd won 0.0%, and draw 0.0%
 MCTS went first 50.0% and rnd went first 50.0%
+
+
+--------------------------------XXX--------------------------------
+-first four moves are for center
+-rush for first player and rush for second player if possible
+
+MCTS won 48.0%, student won 48.0%, and draw 4.0%
+MCTS went first 47.0% and student went first 49.0%
+MCTS won 75.0% by going first, and student won 77.08333333333333% by going first
+

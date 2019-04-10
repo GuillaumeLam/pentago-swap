@@ -2,6 +2,5 @@
 rm -rf ./logs
 rm -rf ./bin
 ant compile;
-#java -cp bin autoplay.Autoplay 100 student_player.MCTSPlayer student_player.AlphaBetaPlayer;
-java -cp bin autoplay.Autoplay 100 student_player.AlphaBetaPlayer pentago_swap.RandomPentagoPlayer;
-
+java -cp bin autoplay.Autoplay 100 student_player.MCTSPlayer student_player.StudentPlayer;
+#java -cp bin autoplay.Autoplay 100 student_player.AlphaBetaPlayer pentago_swap.RandomPentagoPlayer;
