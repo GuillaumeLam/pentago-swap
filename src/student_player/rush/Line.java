@@ -1,7 +1,6 @@
-package student_player;
+package student_player.rush;
 
 import pentago_swap.PentagoBoardState;
-import pentago_swap.PentagoMove;
 
 import java.util.ArrayList;
 
