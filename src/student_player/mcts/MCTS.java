@@ -45,7 +45,6 @@ public class MCTS {
         Tree tree = new Tree(pentagoBoardState);
         Node rootNode = tree.getRoot();
         rootNode.getState().setPlayerNo(opponent);
-        //rootNode.getState().setPlayerNo(player);
 
         while (System.currentTimeMillis() < end) {
             // phase 1
