@@ -833,12 +833,13 @@ public class Rush {
         }
 
         // op's pieces are all in a line, horizontally/vertically or diagonally
-        if ((xs.size() == 3 && ys.size() == 1) || (xs.size() == 1 && ys.size() == 3)
+        if (usedQuadrants(points) < 3 && (
+                (xs.size() == 3 && ys.size() == 1) || (xs.size() == 1 && ys.size() == 3)
                 || (xs.size() == 2 && Math.abs(xs.get(0) - xs.get(1)) == 3 && ys.size() == 2 && Math.abs(ys.get(0) - ys.get(1)) < 3)
                 || (xs.size() == 2 && Math.abs(xs.get(0) - xs.get(1)) < 3 && ys.size() == 2 && Math.abs(ys.get(0) - ys.get(1)) == 3)
                 || (xs.size() == 3 && ys.size() == 2 && Math.abs(ys.get(0) - ys.get(1)) == 3)
                 || (xs.size() == 2 && Math.abs(xs.get(0) - xs.get(1)) == 3 && ys.size() == 3)
-                || (isPointsDiagonal(points))) {
+                || (isPointsDiagonal(points)))) {
             opNoRush = false;
         }
 
@@ -858,5 +859,37 @@ public class Rush {
         }
 
         return diagonal;
+    }
+
+    private int usedQuadrants(ArrayList<Spot> pieces) {
+        ArrayList quadrants = new ArrayList<>();
+        for(Spot spot : pieces) {
+            if (spot.getX() >= 0 && spot.getX() <= 2) {
+                if (spot.getY() >= 0 && spot.getY() <= 2) {
+                    if (!quadrants.contains("TL")) {
+                        quadrants.add("TL");
+                    }
+                }
+                else {
+                    if (!quadrants.contains("TR")) {
+                        quadrants.add("TR");
+                    }
+                }
+            }
+            else {
+                if (spot.getY() >= 0 && spot.getY() <= 2) {
+                    if (!quadrants.contains("BL")) {
+                        quadrants.add("BL");
+                    }
+                }
+                else {
+                    if (!quadrants.contains("BR")) {
+                        quadrants.add("BR");
+                    }
+                }
+            }
+        }
+
+        return quadrants.size();
     }
 }
