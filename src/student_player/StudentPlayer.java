@@ -1,48 +1,42 @@
 package student_player;
 
 import boardgame.Move;
-
-import pentago_swap.PentagoPlayer;
 import pentago_swap.PentagoBoardState;
+import pentago_swap.PentagoMove;
+import pentago_swap.PentagoPlayer;
+import student_player.rush.Rush;
 
-/** A player file submitted by a student. */
 public class StudentPlayer extends PentagoPlayer {
+    private static final String PLAYER ="260736117";
+    private Rush rp = new Rush();
 
-    /**
-     * You must modify this constructor to return your student number. This is
-     * important, because this is what the code that runs the competition uses to
-     * associate you with your agent. The constructor should do nothing else.
-     */
     public StudentPlayer() {
-        super("260736117");
+        super(PLAYER);
     }
 
-    /**
-     * This is the primary method that you need to implement. The ``boardState``
-     * object contains the current state of the game, which your agent must use to
-     * make decisions.
-     */
     public Move chooseMove(PentagoBoardState boardState) {
-        Move myMove;
-
-        //myMove = ABPrune.minimax(2, boardState.getTurnPlayer(), boardState).getValue();
-        myMove = ABPrune.abp(3, boardState.getTurnPlayer(), boardState, Integer.MIN_VALUE, Integer.MAX_VALUE).getValue();
-
-        //myMove = boardState.getAllLegalMoves().get(0);
-        System.out.println(myMove.toPrettyString());
-        boardState.printBoard();
-
+        PentagoMove myMove;
+        myMove = rp.play(boardState);
         return myMove;
     }
 }
 
+
+
 /*TODO for speed:
-*  -reduce the number of legal moves to account for rotation and immediate loss/win
-*  -implement in C++
+*  NOPE-reduce the number of legal moves to account for rotation and immediate loss/win
+*
 * TODO for accuracy
-*  -monte carlo implementation
-*  -nn implementation for board evaluation
-*  -in heuristic of board have some blocking concept
-* TODO general
+*  DONE-monte carlo implementation
+*  NOPE-nn implementation for board evaluation
+*  SORTA-in heuristic of board have some blocking concept
+*  SORTA-in heuristic of board have points for draw
+*  SORTA-in heuristic of board have points for blocking
+*  DONE-first four move focus on center pieces
+*  DONE-run ab but for opponent and if more favourable then play that instead
+*
+ * TODO general
 *  DONE-run code/game on desktop
+*
+*  DONE-illegal move as second
 * */

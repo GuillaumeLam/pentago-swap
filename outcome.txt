@@ -1,0 +1,89 @@
+ab:3
+mcts:100 lvl:3
+MCTS won 79.0%, alpha-beta won 19.0%, and draw 2.0%
+MCTS went first 50.0% and alpha beta went first 48.0%
+MCTS won 39.24050632911393% by going first, and alpha beta won 0.0% by going first
+
+ab:3
+mcts:150 lvl:3
+MCTS won 87.0%, alpha-beta won 12.0%, and draw 1.0%
+MCTS went first 50.0% and alpha beta went first 49.0%
+MCTS won 45.97701149425287% by going first, and alpha beta won 16.666666666666668% by going first
+
+ab:3
+mcts:155 lvl:3
+MCTS won 79.0%, alpha-beta won 21.0%, and draw 0.0%
+MCTS went first 50.0% and alpha beta went first 50.0%
+MCTS won 40.50632911392405% by going first, and alpha beta won 14.285714285714286% by going first
+
+ab:3
+mcts:160 lvl:3
+MCTS won 74.0%, alpha-beta won 26.0%, and draw 0.0%
+MCTS went first 50.0% and alpha beta went first 50.0%
+MCTS won 43.24324324324324% by going first, and alpha beta won 30.76923076923077% by going first
+
+ab:3
+mcts:100 lvl:4
+MCTS won 89.0%, alpha-beta won 10.0%, and draw 1.0%
+MCTS went first 50.0% and alpha beta went first 49.0%
+MCTS won 44.943820224719104% by going first, and alpha beta won 0.0% by going first
+
+MCTS won 87.0%, alpha-beta won 13.0%, and draw 0.0%
+MCTS went first 50.0% and alpha beta went first 50.0%
+MCTS won 42.52873563218391% by going first, and alpha beta won 0.0% by going first
+
+MCTS won 85.0%, alpha-beta won 15.0%, and draw 0.0%
+MCTS went first 50.0% and alpha beta went first 50.0%
+MCTS won 41.1764705882353% by going first, and alpha beta won 0.0% by going first
+
+MCTS won 85.0%, alpha-beta won 14.5%, and draw 0.5%
+MCTS went first 50.0% and alpha beta went first 49.5%
+MCTS won 41.76470588235294% by going first, and alpha beta won 0.0% by going first
+
+ab:3
+mcts:80 lvl:5
+MCTS won 84.0%, alpha-beta won 16.0%, and draw 0.0%
+MCTS went first 50.0% and alpha beta went first 50.0%
+MCTS won 40.476190476190474% by going first, and alpha beta won 0.0% by going first
+
+ab:3
+mcts:85 lvl:5
+MCTS won 86.0%, alpha-beta won 14.0%, and draw 0.0%
+MCTS went first 50.0% and alpha beta went first 50.0%
+MCTS won 41.86046511627907% by going first, and alpha beta won 0.0% by going first
+
+
+--------------------------------XXX--------------------------------
+-first four moves are for center
+-ab will try to block if theres time
+
+ab:3
+mcts:40 lvl:10
+MCTS won 94.0%, alpha-beta won 6.0%, and draw 0.0%
+MCTS went first 50.0% and alpha beta went first 50.0%
+MCTS won 47.87234042553192% by going first, and alpha beta won 16.666666666666668% by going first
+
+--------------------------------XXX--------------------------------
+-first four moves are for center
+
+rnd
+mcts:40 lvl:10
+MCTS won 100.0%, rnd won 0.0%, and draw 0.0%
+MCTS went first 50.0% and rnd went first 50.0%
+
+
+--------------------------------XXX--------------------------------
+-first four moves are for center
+-rush for first player and rush for second player if possible
+
+MCTS won 48.0%, student won 48.0%, and draw 4.0%
+MCTS went first 47.0% and student went first 49.0%
+MCTS won 75.0% by going first, and student won 77.08333333333333% by going first
+
+--------------------------------XXX--------------------------------
+-first four moves are for center
+-rush for first player and rush for second player if possible
+
+MCTS won 45.0%, rush won 52.0%, and draw 3.0%
+MCTS went first 50.0% and rush went first 47.0%
+MCTS won 68.88888888888889% by going first, and rush won 63.46153846153846% by going first
