@@ -25,7 +25,10 @@ public class RushPlayer extends PentagoPlayer {
 
         System.out.println("mcts move took " + (double)(end-start)/1000 + "s");
 
-        System.out.println(boardState.toString());
+        PentagoBoardState board = (PentagoBoardState)boardState.clone();
+        board.processMove(myMove);
+
+        board.printBoard();
         return myMove;
     }
 }

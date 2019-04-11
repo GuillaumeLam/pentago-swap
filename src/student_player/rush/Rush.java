@@ -53,12 +53,15 @@ public class Rush {
             }
             else if (secondrush) {
                 if (turn == 2) {
-                    boolean test = otherPlayerNoRush(boardState);
-                    if (test) {
+                    AbstractMap.SimpleEntry<Boolean, ArrayList<Line>> norush = otherPlayerNoRush(boardState);
+                    if (norush.getKey()) {
                         myMove = rush(boardState);
                     }
                     else {
                         secondrush = false;
+
+                        myMove = block(norush.getValue(), boardState);
+
                     }
                 }
                 else {
@@ -691,8 +694,8 @@ public class Rush {
         return null;
     }
 
-    private boolean otherPlayerNoRush(PentagoBoardState boardState) {
-        boolean opNoRush = true;
+    private AbstractMap.SimpleEntry<Boolean, ArrayList<Line>> otherPlayerNoRush(PentagoBoardState boardState) {
+        AbstractMap.SimpleEntry<Boolean, ArrayList<Line>> opNoRush = new AbstractMap.SimpleEntry<>(true, null);
 
         ArrayList<Line> opLines = new ArrayList<>();
 
@@ -744,7 +747,7 @@ public class Rush {
                 || (xs.size() == 3 && ys.size() == 2 && Math.abs(ys.get(0) - ys.get(1)) == 3)
                 || (xs.size() == 2 && Math.abs(xs.get(0) - xs.get(1)) == 3 && ys.size() == 3)
                 || (isPointsDiagonal(points)))) {
-            opNoRush = false;
+            opNoRush = new AbstractMap.SimpleEntry<>(false, opLines);
         }
 
         return opNoRush;
@@ -752,11 +755,12 @@ public class Rush {
 
     private boolean isPointsDiagonal(ArrayList<Spot> spots) {
         boolean diagonal = true;
-        for (int i = 0; i < spots.size(); i++) {
+        for (int i = 0; i < spots.size()-1; i++) {
             Spot piece = spots.get(i);
             Spot next = spots.get(i+1);
-            if (!(next.getX()-piece.getX() == next.getY()-piece.getY()
-                    || Math.abs(next.getX()-piece.getX()) == - Math.abs(next.getY()-piece.getY()))) {
+//            if (!(next.getX()-piece.getX() == next.getY()-piece.getY()
+//                    || Math.abs(next.getX()-piece.getX()) == - Math.abs(next.getY()-piece.getY()))) {
+            if (Math.abs(next.getX()-piece.getX()) != Math.abs(next.getY()-piece.getY())) {
                 diagonal = false;
                 break;
             }
@@ -795,5 +799,184 @@ public class Rush {
         }
 
         return quadrants.size();
+    }
+
+    private PentagoMove block (ArrayList<Line> lines, PentagoBoardState boardState) {
+        PentagoMove moveToBlock = null;
+        Line mostpieces = null;
+
+        int x = -1;
+        int y = -1;
+        PentagoBoardState.Quadrant q1 = PentagoBoardState.Quadrant.TL;
+        PentagoBoardState.Quadrant q2 = PentagoBoardState.Quadrant.BR;
+
+        if (lines.size() == 6) {
+            ArrayList<Spot> pieces = new ArrayList<>();
+            for (Line line : lines) {
+                for (Spot spot: line.getLine()) {
+                    if (spot.getPlayer() == oppiece) {
+                        pieces.add(spot);
+                    }
+                }
+            }
+
+            Spot a = pieces.get(0);
+            Spot b = pieces.get(1);
+
+            int stepx = b.getX()-a.getX();
+            int stepy = b.getY()-a.getY();
+
+            if (stepx == stepy) {
+                if (stepx == 2) {
+                    x = a.getX() + 1;
+                    y = a.getY() + 1;
+                }
+                else if (stepx == 1) {
+                    if (boardState.getPieceAt(a.getX()+2, a.getY()+2) == PentagoBoardState.Piece.EMPTY) {
+                        x = a.getX()+2;
+                        y = a.getY()+2;
+                    }
+                    else if (boardState.getPieceAt(a.getX()-1, a.getY()-1) == PentagoBoardState.Piece.EMPTY) {
+                        x = a.getX()-1;
+                        y = a.getY()-1;
+                    }
+                }
+
+                q1 = PentagoBoardState.Quadrant.TR;
+                q2 = PentagoBoardState.Quadrant.BL;
+            }
+            else if (stepx == -stepy) {
+                if (Math.abs(stepx) == 2) {
+                    x = a.getX() + 1;
+                    y = a.getY() - 1;
+                }
+                else if (Math.abs(stepx) == 1) {
+                    if (boardState.getPieceAt(a.getX()+2, a.getY()-2) == PentagoBoardState.Piece.EMPTY) {
+                        x = a.getX()+2;
+                        y = a.getY()-2;
+                    }
+                    else if (boardState.getPieceAt(a.getX()-1, a.getY()+1) == PentagoBoardState.Piece.EMPTY) {
+                        x = a.getX()-1;
+                        y = a.getY()+1;
+                    }
+                }
+
+                q1 = PentagoBoardState.Quadrant.TL;
+                q2 = PentagoBoardState.Quadrant.BR;
+            }
+
+            moveToBlock = new PentagoMove(x, y, q1, q2, boardState.getTurnPlayer());
+        }
+        else {
+            for (Line line : lines) {
+                int opp = 0;
+                for (Spot spot: line.getLine()) {
+                    if (spot.getPlayer() == oppiece) {
+                        opp++;
+                    }
+                }
+                if (opp == 2 || opp == 3) {
+                    mostpieces = line;
+                    break;
+                }
+            }
+            if (mostpieces != null) {
+                ArrayList<Spot> pieces = new ArrayList<>();
+
+                for (Spot spot : mostpieces.getLine()) {
+                    if (spot.getPlayer() == oppiece) {
+                        pieces.add(spot);
+                    }
+                }
+
+                if ((pieces.get(0).getY()-pieces.get(1).getY() == 0)) {
+                    if (pieces.get(0).getX() < 3 && pieces.get(1).getX() < 3 ) {
+                        if (mostpieces.getLine().get(0).getPlayer() == PentagoBoardState.Piece.EMPTY) {
+                            y = pieces.get(0).getY();
+                            x = 0;
+                        }
+                        else if (mostpieces.getLine().get(1).getPlayer() == PentagoBoardState.Piece.EMPTY) {
+                            y = pieces.get(0).getY();
+                            x = 1;
+                        }
+                        else if (mostpieces.getLine().get(2).getPlayer() == PentagoBoardState.Piece.EMPTY) {
+                            y = pieces.get(0).getY();
+                            x = 2;
+                        }
+                        else if (mostpieces.getLine().get(3).getPlayer() == PentagoBoardState.Piece.EMPTY) {
+                            y = pieces.get(0).getY();
+                            x = 3;
+                        }
+
+                        q1 = PentagoBoardState.Quadrant.TL;
+                        q2 = PentagoBoardState.Quadrant.BL;
+                    }
+                    else {
+                        if (mostpieces.getLine().get(3).getPlayer() == PentagoBoardState.Piece.EMPTY) {
+                            y = pieces.get(0).getY();
+                            x = 3;
+                        }
+                        else if (mostpieces.getLine().get(4).getPlayer() == PentagoBoardState.Piece.EMPTY) {
+                            y = pieces.get(0).getY();
+                            x = 4;
+                        }
+                        else if (mostpieces.getLine().get(5).getPlayer() == PentagoBoardState.Piece.EMPTY) {
+                            y = pieces.get(0).getY();
+                            x = 5;
+                        }
+                        else if (mostpieces.getLine().get(2).getPlayer() == PentagoBoardState.Piece.EMPTY) {
+                            y = pieces.get(0).getY();
+                            x = 2;
+                        }
+                        q1 = PentagoBoardState.Quadrant.TL;
+                        q2 = PentagoBoardState.Quadrant.TR;
+                    }
+                }
+                else if ((pieces.get(0).getX()-pieces.get(1).getX() == 0)) {
+                    if (pieces.get(0).getY() < 3 && pieces.get(1).getY() < 3 ) {
+                        if (mostpieces.getLine().get(0).getPlayer() == PentagoBoardState.Piece.EMPTY) {
+                            y = 0;
+                            x = pieces.get(0).getX();
+                        }
+                        else if (mostpieces.getLine().get(1).getPlayer() == PentagoBoardState.Piece.EMPTY) {
+                            y = 1;
+                            x = pieces.get(0).getX();
+                        }
+                        else if (mostpieces.getLine().get(2).getPlayer() == PentagoBoardState.Piece.EMPTY) {
+                            y = 2;
+                            x = pieces.get(0).getX();
+                        }
+                        else if (mostpieces.getLine().get(3).getPlayer() == PentagoBoardState.Piece.EMPTY) {
+                            y = 3;
+                            x = pieces.get(0).getX();
+                        }
+                    }
+                    else {
+                        if (mostpieces.getLine().get(3).getPlayer() == PentagoBoardState.Piece.EMPTY) {
+                            y = 3;
+                            x = pieces.get(0).getX();
+                        }
+                        else if (mostpieces.getLine().get(4).getPlayer() == PentagoBoardState.Piece.EMPTY) {
+                            y = 4;
+                            x = pieces.get(0).getX();
+                        }
+                        else if (mostpieces.getLine().get(5).getPlayer() == PentagoBoardState.Piece.EMPTY) {
+                            y = 5;
+                            x = pieces.get(0).getX();
+                        }
+                        else if (mostpieces.getLine().get(2).getPlayer() == PentagoBoardState.Piece.EMPTY) {
+                            y = 2;
+                            x = pieces.get(0).getX();
+                        }
+                    }
+                }
+
+                moveToBlock = new PentagoMove(x, y, q1, q2, boardState.getTurnPlayer());
+
+            }
+
+        }
+
+        return moveToBlock;
     }
 }
