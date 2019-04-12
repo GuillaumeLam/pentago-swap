@@ -70,7 +70,7 @@ public class Rush {
                 }
             }
             else if (!secondrush && turn == 3) {
-                secondBlock(boardState);
+                myMove = secondBlock(boardState);
             }
 
             if (myMove == null) {
@@ -1118,12 +1118,13 @@ public class Rush {
             for (int y = 1; y < 5; y++) {
                 if ((x == 1 || x == 4) && (y == 1 || y == 4)) {
                     if (boardState.getPieceAt(x, y) == oppiece) {
-                        for (int i = -1; i < 1; i++) {
+                        for (int i = -1; i < 2; i++) {
                             for (int j = -1; j < 2; j++) {
                                 if(i != 0 || j != 0) {
                                     if (boardState.getPieceAt(x+i, y+j) == PentagoBoardState.Piece.EMPTY
                                             && boardState.getPieceAt(x-i, y-j) == oppiece ) {
                                         myMove = new PentagoMove(x+i, y+j, PentagoBoardState.Quadrant.TL, PentagoBoardState.Quadrant.BR, boardState.getTurnPlayer());
+                                        break;
                                     }
                                 }
                             }
@@ -1137,12 +1138,14 @@ public class Rush {
                                             && ( (boardState.getPieceAt(x,y+j) == oppiece && boardState.getPieceAt(x+1,y+j) == oppiece)
                                                 || (boardState.getPieceAt(x+i,y) == oppiece && boardState.getPieceAt(x+i,y+1) == oppiece))) {
                                         myMove = new PentagoMove(x+i, y+j, PentagoBoardState.Quadrant.TL, PentagoBoardState.Quadrant.BR, boardState.getTurnPlayer());
+                                        break;
                                     }
                                 }
                                 else if (i == 0 && j == -1) {
                                     if (boardState.getPieceAt(x+i, y+j) == PentagoBoardState.Piece.EMPTY
                                             && boardState.getPieceAt(x-1,y+j) == oppiece && boardState.getPieceAt(x+1,y+j) == oppiece) {
                                         myMove = new PentagoMove(x+i, y+j, PentagoBoardState.Quadrant.TL, PentagoBoardState.Quadrant.BR, boardState.getTurnPlayer());
+                                        break;
                                     }
                                 }
                                 else if (i == 1 && j == -1) {
@@ -1150,18 +1153,21 @@ public class Rush {
                                             && ( (boardState.getPieceAt(x,y+j) == oppiece && boardState.getPieceAt(x-1,y+j) == oppiece)
                                             || (boardState.getPieceAt(x+i,y) == oppiece && boardState.getPieceAt(x+i,y+1) == oppiece))) {
                                         myMove = new PentagoMove(x+i, y+j, PentagoBoardState.Quadrant.TL, PentagoBoardState.Quadrant.BR, boardState.getTurnPlayer());
+                                        break;
                                     }
                                 }
                                 else if (i == -1 && j == 0) {
                                     if (boardState.getPieceAt(x+i, y+j) == PentagoBoardState.Piece.EMPTY
                                             && boardState.getPieceAt(x+i,y-1) == oppiece && boardState.getPieceAt(x+i,y+1) == oppiece) {
                                         myMove = new PentagoMove(x+i, y+j, PentagoBoardState.Quadrant.TL, PentagoBoardState.Quadrant.BR, boardState.getTurnPlayer());
+                                        break;
                                     }
                                 }
                                 else if (i == 1 && j == 0) {
                                     if (boardState.getPieceAt(x+i, y+j) == PentagoBoardState.Piece.EMPTY
                                             && boardState.getPieceAt(x+i,y-1) == oppiece && boardState.getPieceAt(x+i,y+1) == oppiece) {
                                         myMove = new PentagoMove(x+i, y+j, PentagoBoardState.Quadrant.TL, PentagoBoardState.Quadrant.BR, boardState.getTurnPlayer());
+                                        break;
                                     }
                                 }
                                 else if (i == -1 && j == 1) {
@@ -1169,12 +1175,14 @@ public class Rush {
                                             && ( (boardState.getPieceAt(x,y+j) == oppiece && boardState.getPieceAt(x+1,y+j) == oppiece)
                                             || (boardState.getPieceAt(x+i,y) == oppiece && boardState.getPieceAt(x+i,y-1) == oppiece))) {
                                         myMove = new PentagoMove(x+i, y+j, PentagoBoardState.Quadrant.TL, PentagoBoardState.Quadrant.BR, boardState.getTurnPlayer());
+                                        break;
                                     }
                                 }
                                 else if (i == 0 && j == 1) {
                                     if (boardState.getPieceAt(x+i, y+j) == PentagoBoardState.Piece.EMPTY
                                             && boardState.getPieceAt(x-1,y+j) == oppiece && boardState.getPieceAt(x+1,y+j) == oppiece) {
                                         myMove = new PentagoMove(x+i, y+j, PentagoBoardState.Quadrant.TL, PentagoBoardState.Quadrant.BR, boardState.getTurnPlayer());
+                                        break;
                                     }
                                 }
                                 else if (i == 1 && j == 1) {
@@ -1182,6 +1190,7 @@ public class Rush {
                                             && ( (boardState.getPieceAt(x,y+j) == oppiece && boardState.getPieceAt(x-1,y+j) == oppiece)
                                             || (boardState.getPieceAt(x+i,y) == oppiece && boardState.getPieceAt(x+i,y-1) == oppiece))) {
                                         myMove = new PentagoMove(x+i, y+j, PentagoBoardState.Quadrant.TL, PentagoBoardState.Quadrant.BR, boardState.getTurnPlayer());
+                                        break;
                                     }
                                 }
 
